@@ -1,0 +1,90 @@
+using System;
+using System.Collections.Generic;
+
+namespace TrainReservation
+{
+    class Program
+    {
+        // 열차 클래스
+        class Train
+        {
+            public string TrainNumber { get; set; }
+            public string Destination { get; set; }
+            public int SeatsAvailable { get; set; }
+
+            public Train(string number, string destination, int seats)
+            {
+                TrainNumber = number;
+                Destination = destination;
+                SeatsAvailable = seats;
+            }
+        }
+
+        static void Main(string[] args)
+        {
+            List<Train> trains = new List<Train>()
+            {
+                new Train("A101", "Seoul", 5),
+                new Train("B202", "Busan", 3),
+                new Train("C303", "Daegu", 4)
+            };
+
+            Console.WriteLine("===== 열차표 예약 시스템 =====");
+
+            bool running = true;
+            while (running)
+            {
+                Console.WriteLine("\n1. 열차 목록 보기");
+                Console.WriteLine("2. 열차 예약하기");
+                Console.WriteLine("3. 종료");
+                Console.Write("선택: ");
+                string choice = Console.ReadLine();
+
+                switch (choice)
+                {
+                    case "1":
+                        Console.WriteLine("\n[열차 목록]");
+                        foreach (var train in trains)
+                        {
+                            Console.WriteLine($"{train.TrainNumber} | {train.Destination} | 남은 좌석: {train.SeatsAvailable}");
+                        }
+                        break;
+
+                    case "2":
+                        Console.Write("\n예약할 열차 번호 입력: ");
+                        string trainNumber = Console.ReadLine();
+                        Train selectedTrain = trains.Find(t => t.TrainNumber.Equals(trainNumber, StringComparison.OrdinalIgnoreCase));
+
+                        if (selectedTrain != null)
+                        {
+                            if (selectedTrain.SeatsAvailable > 0)
+                            {
+                                Console.Write("예약자 이름 입력: ");
+                                string name = Console.ReadLine();
+                                selectedTrain.SeatsAvailable--;
+                                Console.WriteLine($"예약 완료! {name}님, {selectedTrain.TrainNumber} {selectedTrain.Destination} 좌석 예약됨.");
+                            }
+                            else
+                            {
+                                Console.WriteLine("죄송합니다. 좌석이 모두 예약되었습니다.");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("존재하지 않는 열차 번호입니다.");
+                        }
+                        break;
+
+                    case "3":
+                        running = false;
+                        Console.WriteLine("프로그램 종료");
+                        break;
+
+                    default:
+                        Console.WriteLine("잘못된 선택입니다. 다시 시도하세요.");
+                        break;
+                }
+            }
+        }
+    }
+}
