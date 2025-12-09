@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Train Ticket Reservation</title>
+</head>
+<body>
+
+    <h1> 열차표 예약 </h1>
+
+    <!-- ◆ 1. 도착 도시 선택 -->
+    <div>
+        <label>도착 도시 선택:</label>
+        <select id="sel-city">
+            <option value="서울"> 서울 </option>
+            <option value="부산"> 부산 </option>
+            <option value="전주" selected> 전주 </option>
+            <option value="광주"> 광주 </option>
+            <option value="강릉"> 강릉 </option>
+        </select>
+    </div>
+
+    <br>
+
+    <!-- ◆ 2. 열차 종류 선택 -->
+    <div>
+        <label>열차 종류 선택:</label>
+        <select id="sel-train">
+            <option value="KTX"> KTX </option>
+            <option value="새마을호"> 새마을호 </option>
+            <option value="ITX-청춘"> ITX-청춘 </option>
+            <option value="무궁화호" selected> 무궁화호 </option>
+        </select>
+    </div>
+
+    <br>
+
+    <!-- ◆ 3. 좌석 번호 입력 -->
+    <div>
+        <label>좌석 번호 입력:</label>
+        <input type="text" id="seat-no" placeholder="예: 12A">
+    </div>
+
+    <br>
+
+    <!-- ◆ 결과 출력 -->
+    <p id="txt-result" style="font-size:20px; font-weight:bold; color:blue;"></p>
+
+    <!-- ◆ 버튼 -->
+    <button id="btn-select">예약하기</button>
+
+    <script>
+        var selCity = document.getElementById("sel-city")
+        var selTrain = document.getElementById("sel-train")
+        var seatNo = document.getElementById("seat-no")
+        var txtResult = document.getElementById("txt-result")
+        var btnSelect = document.getElementById("btn-select")
+
+        btnSelect.addEventListener('click', () => {
+            // 선택 내용 출력 확인
+            console.log(selCity.value, selTrain.value, seatNo.value)
+
+            // 결과 출력 (innerHTML 또는 textContent)
+            txtResult.textContent = 
+                selCity.value + "행 " + selTrain.value + 
+                " 열차, 좌석 [" + seatNo.value + "] 예약 완료!"
+        })
+    </script>
+</body>
+</html>
